@@ -1,0 +1,33 @@
+import time
+from selenium import webdriver
+from selenium.webdriver.edge.service import Service
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from webdriver_manager.microsoft import EdgeChromiumDriverManager
+
+# Automatically download & use the correct Edge WebDriver
+service_obj = Service(r"C:\Users\admin\Desktop\abhi ml\msedgedriver.exe")
+driver = webdriver.Edge(service=service_obj)
+driver.get("https://www.google.com")
+print("✅ Chrome launched successfully!")
+driver.get("https://employee.isaar.in/")
+driver.maximize_window()
+driver.find_element(By.XPATH,"//*[@id='root']/div/div/input").send_keys("Admin1122")
+driver.find_element(By.XPATH,"//*[@id='root']/div/div/div[2]/input").send_keys("Isar@2025")
+time.sleep(5)
+driver.find_element(By.XPATH,"//*[@id='root']/div/div/button").click()
+wait = WebDriverWait(driver, 20)
+wait.until(EC.presence_of_element_located((By.XPATH, "//*[@id='root']/div/div/div[1]")))
+print("✅ Dashboard loaded successfully!")
+time.sleep(5)
+#print("Current URL:", driver.current_url)
+act_title=driver.title
+exp_title="ISAR EMS"
+print(act_title)
+print(exp_title)
+if act_title == exp_title:
+    print("logined")
+else:
+    print("not logined")
+time.sleep(5)
